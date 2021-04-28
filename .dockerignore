@@ -4,5 +4,25 @@
 # Visual Studio Code
 .vscode
 
+# Env Bash/PowerShell scripts
+configure_git.ps1
+configure_git_1.ps1
+
+# Python cached scripts
+__pycache__
+
 # Virtual environment
 venv
+
+# Java output
+target
+
+# Java env config
+settings.xml
+
+# Node.js modules
+node_modules
+
+# Common output directories
+out
+build
