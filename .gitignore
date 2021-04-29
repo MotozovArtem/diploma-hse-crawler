@@ -60,3 +60,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### Enterprise Architect ignore (temporary)
+*.EAP
