@@ -1,9 +1,7 @@
 import logging
 
 from mongoengine import connect, disconnect
-
 from util.AppProperties import AppProperties
-
 
 class Database:
     def __init__(self):
@@ -16,8 +14,7 @@ class Database:
         connect(db=db_name,
                 username=app_properties["db"]["user"],
                 password=app_properties["db"]["password"],
-                host=db_address_template.format(host_address,
-                                                port))  # mongodb://192.168.99.100:27017/database as example
+                host=db_address_template.format(host_address, port))
         logging.info("Connected to databases")
 
     def __del__(self):
