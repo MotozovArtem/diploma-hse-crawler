@@ -64,3 +64,4 @@ build/
 
 ### Enterprise Architect ignore (temporary)
 *.EAP
+*.ldb

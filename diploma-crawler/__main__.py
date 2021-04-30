@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import argparse
 
-from model.Database import Database
+from domain.Database import Database
 
 args_parser = argparse.ArgumentParser(description="Illegal activity main script")
 args_parser.add_argument("-ll", "--log_level", type=str, default="INFO", help="Log level (default: INFO)")
@@ -14,9 +14,8 @@ args = args_parser.parse_args()
 DB = Database()
 
 import scrapper.main as scrapper_main
-import classificator.classificator_main as classificator_main
-import checker.main as checker_main
 
 if __name__ == '__main__':
+    print("Hello world!")
     print("Starting scrapping")
     scrapper_main.main()
