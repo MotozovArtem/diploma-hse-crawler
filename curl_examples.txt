@@ -1,0 +1,1 @@
+curl -i -X POST -H "Content-Type:application/json" -d "{\"id\": \"7ee782f8-d5ec-4b9f-86e3-f1c27973e45b\"}" http://localhost:8080/api/web_page
