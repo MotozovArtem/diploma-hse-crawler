@@ -15,28 +15,28 @@ import java.time.LocalDateTime;
  */
 public abstract class DomainObject {
 	/**
-	 * todo armotozov.
+	 * Идентификатор.
 	 */
 	@Id
-	private String id;
+	protected String id;
 
 	/**
-	 * todo armotozov.
+	 * Время создания записи.
 	 */
 	@CreatedDate
-	private LocalDateTime creationTime;
+	protected LocalDateTime creationTime;
 
 	/**
-	 * todo armotozov.
+	 * Время последнего изменения записи.
 	 */
 	@LastModifiedDate
-	private LocalDateTime lastModifiedTime;
+	protected LocalDateTime lastModifiedTime;
 
 	/**
-	 * todo armotozov.
+	 * Версия.
 	 */
 	@Version
-	private Long ts;
+	protected Long ts;
 
 	public String getId() {
 		return id;
