@@ -7,8 +7,6 @@ import scrapy
 from bs4 import BeautifulSoup
 from scrapy import signals
 
-from model.DomainClasses import OrganizationProcessing
-
 
 class CollectedDataByOrganizationJSON:
     collection_id: str
@@ -26,6 +24,10 @@ class Spider(scrapy.Spider):
     start_urls = []
     organization_processing_by_domain = dict()
     collected_data_by_domain = dict()
+    
+    def __init__(self, name=None, **kwargs):
+        super().__init__(name=name, **kwargs)
+        self.__LOG: logging.Logger = logging.getLogger("Spider-{}".format(start_urls[0]))
 
     @classmethod
     def from_crawler(cls, crawler, *args, **kwargs):
@@ -34,15 +36,14 @@ class Spider(scrapy.Spider):
         return spider
 
     def spider_close(self):
-        logging.info("Spider closed")
-        logging.info("Saving collected data")
+        self.__LOG.info("Spider closed")
+        self.__LOG.info("Saving collected data")
         for domain in self.organization_processing_by_domain.keys():
-            logging.info("Saving for " + domain)
+            self.__LOG.info("Saving for " + domain)
             self.organization_processing_by_domain[domain].phase = "CREATED"
             self.organization_processing_by_domain[domain].collected_data.new_file(encoding="utf-8")
             collected_data = self.collected_data_by_domain[domain]
-            self.organization_processing_by_domain[domain].collected_data.write(json.dumps(collected_data.__dict__,
-                                                                                           ensure_ascii=False))
+            self.organization_processing_by_domain[domain].collected_data.write(json.dumps(collected_data.__dict__, ensure_ascii=False))
             self.organization_processing_by_domain[domain].collected_data.close()
             self.organization_processing_by_domain[domain].save()
 

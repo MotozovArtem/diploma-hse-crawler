@@ -26,15 +26,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="domain\Database.py" />
+    <Compile Include="domain\Domain.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="domain\__init__.py" />
     <Compile Include="exceptions\__init__.py" />
-    <Compile Include="scrapper\main.py" />
+    <Compile Include="scrapper\ScrapperProcess.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="scrapper\Searcher.py" />
     <Compile Include="scrapper\spider\items.py" />
     <Compile Include="scrapper\spider\middlewares.py" />
     <Compile Include="scrapper\spider\pipelines.py" />
     <Compile Include="scrapper\spider\settings.py" />
-    <Compile Include="scrapper\spider\spiders\quotes_spider.py" />
+    <Compile Include="scrapper\spider\spiders\spider.py" />
     <Compile Include="scrapper\spider\spiders\__init__.py" />
     <Compile Include="scrapper\spider\__init__.py" />
     <Compile Include="scrapper\__init__.py" />
@@ -42,6 +47,11 @@
     <Compile Include="test\test_main.py" />
     <Compile Include="test\test_properties.py" />
     <Compile Include="test\__init__.py" />
+    <Compile Include="text\PreprocessingProcess.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="text\preprocessor\__init__.py" />
+    <Compile Include="text\__init__.py" />
     <Compile Include="util\AppProperties.py" />
     <Compile Include="util\__init__.py" />
     <Compile Include="__main__.py" />
@@ -56,6 +66,8 @@
     <Folder Include="scrapper\spider\__pycache__\" />
     <Folder Include="test\" />
     <Folder Include="test\test_app_json\" />
+    <Folder Include="text\" />
+    <Folder Include="text\preprocessor\" />
     <Folder Include="util\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,8 @@
 import datetime
 import unittest
 
-from model.Database import Database
-from model.DomainClasses import Organization, OrganizationProcessing
-
+from domain.Database import Database
+from domain.Domain import *
 
 class TestDb(unittest.TestCase):
 
@@ -24,10 +23,10 @@ class TestDb(unittest.TestCase):
     @unittest.skip
     def test_read_file(self):
         db = Database()
-        organization_processing_list = OrganizationProcessing.objects()
+        web_portal_list = WebPortal.objects()
         i = 0
-        for organization_processing in organization_processing_list:
-            collected_data_json = organization_processing.collected_data.read()
+        for web_portal in web_portal_list:
+            collected_data_json = web_portal.collected_data.read()
             i += 1
             data = str(collected_data_json, encoding="utf-8")
             with open("read_file_test_output_result_{0}.json".format(i), "w", encoding="utf-8") as out:
