@@ -12,7 +12,7 @@ configure_git_1.ps1
 __pycache__
 
 # Log
-# *.log
+*.log
 
 # Virtual environment
 venv

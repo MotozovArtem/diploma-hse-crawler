@@ -6,65 +6,43 @@ from urllib.parse import urlparse, urljoin
 import scrapy
 from bs4 import BeautifulSoup
 from scrapy import signals
-
-
-class CollectedDataByOrganizationJSON:
-    collection_id: str
-    url: str
-    resources: list
-
-    def __init__(self):
-        self.collection_id = str(uuid.uuid4())
-        self.url = str()
-        self.resources = list()
+from domain.Domain import WebPage, WebPortal
 
 
 class Spider(scrapy.Spider):
-    name = 'illegal-activities'
+    name = 'diploma-crawler'
     start_urls = []
-    organization_processing_by_domain = dict()
-    collected_data_by_domain = dict()
-    
+    web_portal: WebPortal
+
     def __init__(self, name=None, **kwargs):
         super().__init__(name=name, **kwargs)
-        self.__LOG: logging.Logger = logging.getLogger("Spider-{}".format(start_urls[0]))
-
-    @classmethod
-    def from_crawler(cls, crawler, *args, **kwargs):
-        spider = super(Spider, cls).from_crawler(crawler, *args, **kwargs)
-        crawler.signals.connect(spider.spider_close, signal=signals.engine_stopped)
-        return spider
-
-    def spider_close(self):
-        self.__LOG.info("Spider closed")
-        self.__LOG.info("Saving collected data")
-        for domain in self.organization_processing_by_domain.keys():
-            self.__LOG.info("Saving for " + domain)
-            self.organization_processing_by_domain[domain].phase = "CREATED"
-            self.organization_processing_by_domain[domain].collected_data.new_file(encoding="utf-8")
-            collected_data = self.collected_data_by_domain[domain]
-            self.organization_processing_by_domain[domain].collected_data.write(json.dumps(collected_data.__dict__, ensure_ascii=False))
-            self.organization_processing_by_domain[domain].collected_data.close()
-            self.organization_processing_by_domain[domain].save()
+        self.__LOG: logging.Logger = logging.getLogger(__name__)
 
     def parse(self, response):
         parsed_url = urlparse(response.url)
 
-        if parsed_url.hostname not in self.collected_data_by_domain:
-            self.collected_data_by_domain[parsed_url.hostname] = CollectedDataByOrganizationJSON()
-            self.collected_data_by_domain[parsed_url.hostname].url = \
-                "{url.scheme}://{url.hostname}".format(url=parsed_url)
-
-        if parsed_url.hostname not in self.organization_processing_by_domain.keys():
-            self.organization_processing_by_domain[parsed_url.hostname] = OrganizationProcessing()
-
-        resource = {"resource": parsed_url.path, "data": response.text}
-        self.collected_data_by_domain[parsed_url.hostname].resources.append(resource)
+        web_page = WebPage()
 
         # Парсим HTML страницу, для того, чтобы вытащить все имеющиеся на странице ссылки
         soup = BeautifulSoup(response.text, "lxml")
 
+        web_page.url = response.url
+        web_page.page_text = response.text
+        web_page.meta_data = json.dumps(self._join_tags(soup.find_all("meta")))
+        # web_page.head = json.dumps(self._join_tags(soup.find_all("head")))
+        web_page.web_portal = self.web_portal
+
+        web_page.save()
         # находим все ссылки на странице
         urls = soup.find_all('a', href=True)
         for url in urls:
             yield scrapy.Request(urljoin(response.url, url["href"]), self.parse)
+
+    def _join_tags(self, tags_list):
+        result = dict()
+        i = 0
+        for tag in tags_list:
+            tag_as_string = str(tag)
+            result[i] = tag_as_string
+            i += 1
+        return result

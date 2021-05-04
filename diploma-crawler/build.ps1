@@ -1,0 +1,1 @@
+docker build -t diploma-crawler:0.0.1 .
