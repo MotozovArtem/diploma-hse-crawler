@@ -5,6 +5,7 @@ from util.AppProperties import AppProperties
 
 class Database:
     def __init__(self):
+        self.__LOG = logging.getLogger("Database")
         app_properties = AppProperties()
         db_address_template = "mongodb://{0}:{1}/?authSource=admin"
         host_address = app_properties["db"]["host"]

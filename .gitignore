@@ -11,8 +11,13 @@ configure_git_1.ps1
 # Python cached scripts
 __pycache__
 
+# Log
+# *.log
+
 # Virtual environment
 venv
+env
+virtualenv
 
 # Java output
 target
@@ -60,7 +65,6 @@ build/
 
 ### VS Code ###
 .vscode/
-
 
 ### Enterprise Architect ignore (temporary)
 *.EAP

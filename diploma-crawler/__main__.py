@@ -41,12 +41,13 @@ DB = Database()
 
 
 def main(args):
-    from scrapper.Searcher import Searcher, USER_AGENT
+    from scrapper.YandexSearcher import YandexSearcher, USER_AGENT
     from scrapper.ScrapperProcess import ScrapperProcess
     import random
 
-    search = Searcher()
-    user_agent = random.choice(USER_AGENT)
+    search = YandexSearcher()
+    # user_agent = random.choice(USER_AGENT)
+    user_agent = USER_AGENT[0]
     LOG.debug("Set User-Agent header as %s", user_agent)
     search.set_headers({"User-Agent": user_agent})
 
