@@ -1,5 +1,7 @@
 package ru.hse.diploma.domain;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.LocalDateTime;
 
 /**
@@ -8,6 +10,7 @@ import java.time.LocalDateTime;
  * @author Artem Motozov
  * @since 2021.04.29
  */
+@Document(collection = "domain_object")
 public class WebPageAnalyseResult extends DomainObject {
 
 	/**

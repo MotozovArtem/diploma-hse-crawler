@@ -1,5 +1,6 @@
 package ru.hse.diploma.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoClientFactoryBean;
@@ -13,11 +14,17 @@ import org.springframework.data.mongodb.core.MongoClientFactoryBean;
 @Configuration
 public class AppConfig {
 
+	@Value("${spring.data.mongodb.port}")
+	private Integer port;
+
+	@Value("${spring.data.mongodb.host}")
+	private String host;
+
 	@Bean
 	public MongoClientFactoryBean mongoClientFactoryBean() {
 		MongoClientFactoryBean mongoClientFactoryBean = new MongoClientFactoryBean();
-		mongoClientFactoryBean.setHost("localhost");
-		mongoClientFactoryBean.setPort(27017);
+		mongoClientFactoryBean.setHost(host);
+		mongoClientFactoryBean.setPort(port);
 		return mongoClientFactoryBean;
 	}
 }

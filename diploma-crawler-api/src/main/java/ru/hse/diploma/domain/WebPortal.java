@@ -1,5 +1,8 @@
 package ru.hse.diploma.domain;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import java.util.List;
 
 /**
@@ -8,20 +11,24 @@ import java.util.List;
  * @author Artem Motozov
  * @since 2021.04.29
  */
-public class WebPortal extends DomainObject{
+@Document(collection = "domain_object")
+public class WebPortal extends DomainObject {
 	/**
 	 * Наименование веб-портала.
 	 */
+	@Field("portal_name")
 	private String portalName;
 
 	/**
 	 * Доменное имя веб-портала.
 	 */
+	@Field("domain_name")
 	private String domainName;
 
 	/**
 	 * Использованные ключевые слова для поиска веб-портала.
 	 */
+	@Field("used_keywords")
 	private List<String> usedKeywords;
 
 	public String getPortalName() {

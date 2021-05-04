@@ -1,40 +1,57 @@
 package ru.hse.diploma.domain;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 /**
  * Модель Веб-страницы.
  *
  * @author Artem Motozov
  * @since 2021.04.29
  */
+@Document(collection = "domain_object")
 public class WebPage extends DomainObject {
 	/**
 	 * URL веб-страницы.
 	 */
+	@Field("url")
 	private String url;
 
 	/**
 	 * Ресурс веб-страницы.
 	 */
+	@Field("resource_name")
 	private String resourceName;
 
 	/**
 	 * Метаданные веб-страницы.
 	 */
-	private String meta;
+	@Field("meta_data")
+	private String metaData;
 
 	/**
 	 * Заголовок веб-страницы.
 	 */
+	@Field("head")
 	private String head;
+
+	/**
+	 * HTML страница.
+	 */
+	@Field("page_text")
+	private String pageText;
 
 	/**
 	 * Веб-портал.
 	 */
+	@Field("web_portal_id")
 	private WebPortal webPortal;
+
 
 	/**
 	 * Результаты анализа веб-страницы.
 	 */
+	@Field("web_page_analyse_result_id")
 	private WebPageAnalyseResult webPageAnalyseResult;
 
 	public String getUrl() {
@@ -53,12 +70,12 @@ public class WebPage extends DomainObject {
 		this.resourceName = resourceName;
 	}
 
-	public String getMeta() {
-		return meta;
+	public String getMetaData() {
+		return metaData;
 	}
 
-	public void setMeta(String meta) {
-		this.meta = meta;
+	public void setMetaData(String metaData) {
+		this.metaData = metaData;
 	}
 
 	public String getHead() {
@@ -67,6 +84,14 @@ public class WebPage extends DomainObject {
 
 	public void setHead(String head) {
 		this.head = head;
+	}
+
+	public String getPageText() {
+		return pageText;
+	}
+
+	public void setPageText(String pageText) {
+		this.pageText = pageText;
 	}
 
 	public WebPortal getWebPortal() {

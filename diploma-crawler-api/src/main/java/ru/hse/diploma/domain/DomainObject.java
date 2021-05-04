@@ -4,6 +4,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 
@@ -23,18 +24,21 @@ public abstract class DomainObject {
 	/**
 	 * Время создания записи.
 	 */
+	@Field("creation_time")
 	@CreatedDate
 	protected LocalDateTime creationTime;
 
 	/**
 	 * Время последнего изменения записи.
 	 */
+	@Field("last_modified_time")
 	@LastModifiedDate
 	protected LocalDateTime lastModifiedTime;
 
 	/**
 	 * Версия.
 	 */
+	@Field("ts")
 	@Version
 	protected Long ts;
 
