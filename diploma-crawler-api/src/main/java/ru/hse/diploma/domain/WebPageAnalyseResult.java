@@ -1,6 +1,7 @@
 package ru.hse.diploma.domain;
 
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 
@@ -16,36 +17,43 @@ public class WebPageAnalyseResult extends DomainObject {
 	/**
 	 * Результат лемматизации.
 	 */
+	@Field("lemmatization")
 	private String lemmatization;
 
 	/**
 	 * Результат нормализации.
 	 */
+	@Field("normalization")
 	private String normalization;
 
 	/**
 	 * Текст очищенный от тегов.
 	 */
+	@Field("raw_text")
 	private String rawText;
 
 	/**
 	 * Текст ошибки.
 	 */
+	@Field("error_text")
 	private String errorText;
 
 	/**
 	 * Время начала анализа.
 	 */
+	@Field("start_analyse")
 	private LocalDateTime startAnalyse;
 
 	/**
 	 * Время завершения анализа.
 	 */
+	@Field("finish_analyse")
 	private LocalDateTime finishAnalyse;
 
 	/**
 	 * Фаза анализа.
 	 */
+	@Field("phase")
 	private AnalysePhase phase;
 
 	public String getLemmatization() {

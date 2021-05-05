@@ -21,15 +21,14 @@ class Spider(scrapy.Spider):
     def parse(self, response):
         parsed_url = urlparse(response.url)
 
-        web_page = WebPage()
-
         # Парсим HTML страницу, для того, чтобы вытащить все имеющиеся на странице ссылки
         soup = BeautifulSoup(response.text, "lxml")
 
+        web_page = WebPage()
         web_page.url = response.url
         web_page.page_text = response.text
         web_page.meta_data = json.dumps(self._join_tags(soup.find_all("meta")))
-        web_page.head = json.dumps(self._join_tags(soup.find("head")))
+        web_page.head = json.dumps(self._join_tags(soup.find_all("head")))
         web_page.web_portal = self.web_portal
 
         web_page.save()
