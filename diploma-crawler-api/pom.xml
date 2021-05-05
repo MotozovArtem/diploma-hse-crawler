@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -15,6 +15,12 @@
 	<description>Diploma project crawler api module</description>
 	<properties>
 		<java.version>11</java.version>
+		<diploma.ui.install.args>--prefer-offline --legacy-peer-deps</diploma.ui.install.args>
+		<diploma.static.content.relative>classes/static/</diploma.static.content.relative>
+		<diploma.static.content.path>${project.build.directory}/${diploma.static.content.relative}
+		</diploma.static.content.path>
+		<dimploma.template.path>${project.build.directory}/classes/templates</dimploma.template.path>
+		<diploma.ui.build.args>--dest ../target/${diploma.static.content.relative} --no-clean</diploma.ui.build.args>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -42,6 +48,62 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<id>install-npm-dependencies</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>npm</executable>
+							<commandlineArgs>install ${diploma.ui.install.args}</commandlineArgs>
+							<workingDirectory>ui</workingDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>build-js</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>npx</executable>
+							<commandlineArgs>vue-cli-service build ${diploma.ui.build.args}</commandlineArgs>
+							<workingDirectory>ui</workingDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-index-template</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+
+						<configuration>
+							<outputDirectory>${dimploma.template.path}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${diploma.static.content.path}</directory>
+									<includes>
+										<include>index.html</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

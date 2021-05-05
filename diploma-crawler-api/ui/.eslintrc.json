@@ -1,0 +1,33 @@
+{
+  "root": true,
+  "env": {
+	"node": true
+  },
+  "extends": [
+	"plugin:vue/essential",
+	"plugin:vue/strongly-recommended",
+	"plugin:vue/recommended",
+	"@vue/standard",
+	"@vue/typescript/recommended"
+  ],
+  "parserOptions": {
+	"ecmaVersion": 2020
+  },
+  "rules": {
+	"no-debugger": "off",
+	"no-undef": "off",
+	"max-len": ["error", {"code": 120}],
+	"semi": ["error", "always"],
+	"func-call-spacing": ["error", "never"],
+	"space-before-function-paren": ["error", {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
+	"no-trailing-spaces": "off",
+	"vue/max-attributes-per-line": ["error", {"singleline": 5}],
+	"vue/html-self-closing": ["error", {"html": {"normal": "never"}}],
+	"vue/singleline-html-element-content-newline": "off",
+	"vue/require-default-prop": "off",
+	"vue/no-template-shadow": "off",
+	"vue/no-v-html": "off",
+	"@typescript-eslint/no-explicit-any": "off",
+	"@typescript-eslint/ban-ts-comment": "off"
+  }
+}

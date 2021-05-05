@@ -12,13 +12,13 @@ class DomainObject(Document):
     last_modified_time = DateTimeField(default=datetime.datetime.utcnow)
     creation_time = DateTimeField(default=datetime.datetime.utcnow)
     ts = IntField(default=0)
-    
+
     meta = {'allow_inheritance': True}
 
 
 class WebPortal(DomainObject):
     '''Доменный класс WebPortal'''
-    _class=StringField(default="ru.hse.diploma.domain.WebPortal")
+    _class = StringField(default="ru.hse.diploma.domain.WebPortal")
     portal_name = StringField(max_length=500)
     domain_name = StringField(max_length=255)
     used_keywords = StringField(max_length=2000)
@@ -26,7 +26,7 @@ class WebPortal(DomainObject):
 
 class WebPageAnalyseResult(DomainObject):
     '''Доменный класс WebPageAnalyseResult'''
-    _class=StringField(default="ru.hse.diploma.domain.WebPageAnalyseResult")
+    _class = StringField(default="ru.hse.diploma.domain.WebPageAnalyseResult")
     lemmatization_result = StringField()
     normalization_result = StringField()
     raw_text = StringField()
@@ -39,7 +39,7 @@ class WebPageAnalyseResult(DomainObject):
 
 class WebPage(DomainObject):
     '''Доменный класс WebPage.'''
-    _class=StringField(default="ru.hse.diploma.domain.WebPage")
+    _class = StringField(default="ru.hse.diploma.domain.WebPage")
     url = StringField(max_length=1000)
     resource_name = StringField(max_length=500)
     meta_data = StringField(max_length=2000)

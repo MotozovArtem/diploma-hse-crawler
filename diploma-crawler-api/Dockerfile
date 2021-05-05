@@ -11,7 +11,7 @@ ENV JAVA_OPTS_ADD=""
 
 RUN mkdir -p /apps
 
-COPY ${APP_JAR_FILE} /apps/asutd.jar
+COPY ${APP_JAR_FILE} /apps/diploma.jar
 
 COPY ${JCP_ZIP_FILE} /apps/jcp.zip
 RUN mkdir -p /opt

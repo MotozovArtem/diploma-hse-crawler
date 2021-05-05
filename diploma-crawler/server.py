@@ -58,6 +58,15 @@ def start_crawl():
         app.logger.info("Received non-json data")
         return Response(status=406)
 
+@app.route("/search_sites", methods=["POST"])
+def start_crawl():
+    if request.is_json:
+        # todo: add logic
+        return Response(status=200)
+    else:
+        app.logger.info("Received non-json data")
+        return Response(status=406)
+
 
 @crochet.run_in_reactor
 def crawl_target_url(target_url: str, web_portal: WebPortal):
