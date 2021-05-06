@@ -8,7 +8,7 @@ const routes: Array<RouteConfig> = [
     path: '/',
     name: 'index',
     component: () => import('@/views/Main.vue'),
-    meta: {title: 'Главная', showInMenu: true, icon: 'mdi-home'}
+    meta: {title: 'Main', showInMenu: true, icon: 'mdi-home'}
   },
   {
     path: '/web_page',

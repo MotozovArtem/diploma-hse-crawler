@@ -3,6 +3,7 @@
     :headers="computedTableHeaders"
     :items="webPageAnalyseResults"
     :loading="isLoading"
+    @click:row="showWebPageAnalyseResultItem"
   >
     <template v-slot:item.id="{ item }">
       <span>{{ item.id != null && item.id.length > 8 ? item.id.substring(0,8) + "...": item.id }}</span>
@@ -13,7 +14,7 @@
 <script lang="ts">
 import {Component, Mixins} from 'vue-property-decorator';
 import Table from "@/mixins/Table";
-import {WebPageAnalyseResult} from "@/model/model";
+import {WebPageAnalyseResult, WebPortal} from "@/model/model";
 import {TableHeader} from "@/models/Table";
 
 @Component
@@ -39,6 +40,10 @@ export default class WebPageAnalyseResultTable extends Mixins(Table) {
     this.isLoading = true;
     this.webPageAnalyseResults = await this.$api.getDomainObjectList({ name: 'web_page_analyse_result_view' });
     this.isLoading = false;
+  }
+
+  private showWebPageAnalyseResultItem(item: WebPageAnalyseResult): void {
+    this.$router.push({name: "web_page_analyse_result_item", params: {id: item.id}})
   }
 }
 </script>
