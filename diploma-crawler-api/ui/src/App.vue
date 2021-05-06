@@ -6,13 +6,9 @@
     </v-navigation-drawer>
     <v-app-bar app color="primary">
       <v-app-bar-title style="color: white">Crawler API UI</v-app-bar-title>
-      <!-- -->
     </v-app-bar>
-    <!-- Sizes your content based upon application components -->
     <v-main>
-      <!-- Provides the application the proper gutter -->
       <v-container fluid>
-        <!-- If using vue-router -->
         <router-view/>
       </v-container>
     </v-main>
@@ -22,6 +18,7 @@
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
 import NavigationLinks from '@/components/NavigationLinks.vue';
+import VueRouter, {RouteConfig} from "vue-router";
 
 @Component({
   components: {

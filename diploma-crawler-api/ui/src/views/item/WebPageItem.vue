@@ -56,8 +56,8 @@ import {WebPage} from "@/model/model";
 export default class WebPageItem extends Vue {
   @Prop({type: String}) readonly id!: string;
 
-  private webPageId!: string = '';
-  private webPage: WebPage = null;
+  private webPageId: string = '';
+  private webPage: WebPage;
 
   private async created(): Promise<void> {
     this.webPageId = this.id;

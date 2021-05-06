@@ -49,8 +49,8 @@ import {WebPortal} from "@/model/model";
 export default class WebPortalItem extends Vue {
   @Prop({type: String}) readonly id!: string;
 
-  private webPortalId!: string  = '';
-  private webPortal: WebPortal = null;
+  private webPortalId: string  = '';
+  private webPortal: WebPortal;
 
   private async created(): Promise<void> {
     this.webPortalId = this.id;
