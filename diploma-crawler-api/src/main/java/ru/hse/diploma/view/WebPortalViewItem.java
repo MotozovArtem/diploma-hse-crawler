@@ -10,6 +10,19 @@ import java.util.List;
  * @since 2021.05.06
  */
 public class WebPortalViewItem {
+
+	public static class WebPageIdAndResourceName {
+
+		public final String id;
+
+		public final String name;
+
+		public WebPageIdAndResourceName(String id, String name) {
+			this.id = id;
+			this.name = name;
+		}
+	}
+
 	/**
 	 * Идентификатор.
 	 */
@@ -31,9 +44,9 @@ public class WebPortalViewItem {
 	private List<String> usedKeywords;
 
 	/**
-	 * todo armotozov.
+	 * Список собранных страниц для веб-портала.
 	 */
-	private List<String> webPageIds;
+	private List<WebPageIdAndResourceName> webPages;
 
 	/**
 	 * Время создания записи.
@@ -82,12 +95,12 @@ public class WebPortalViewItem {
 		this.usedKeywords = usedKeywords;
 	}
 
-	public List<String> getWebPageIds() {
-		return webPageIds;
+	public List<WebPageIdAndResourceName> getWebPages() {
+		return webPages;
 	}
 
-	public void setWebPageIds(List<String> webPageIds) {
-		this.webPageIds = webPageIds;
+	public void setWebPages(List<WebPageIdAndResourceName> webPages) {
+		this.webPages = webPages;
 	}
 
 	public LocalDateTime getCreationTime() {
@@ -121,7 +134,7 @@ public class WebPortalViewItem {
 				", portalName='" + portalName + '\'' +
 				", domainName='" + domainName + '\'' +
 				", usedKeywords=" + usedKeywords +
-				", webPageIds=" + webPageIds +
+				", webPageIds=" + webPages +
 				", creationTime=" + creationTime +
 				", lastModifiedTime=" + lastModifiedTime +
 				", ts=" + ts +

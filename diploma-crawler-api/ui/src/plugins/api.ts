@@ -22,7 +22,7 @@ export class Api extends BaseApi {
       url: `${params.name}/${params.id}`
     });
 
-    return response[0];
+    return response;
   }
 
   public async getDomainObjectList<T extends DomainObject>(params: DomainObjectListOptions): Promise<T[]> {

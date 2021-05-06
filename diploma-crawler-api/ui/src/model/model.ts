@@ -56,16 +56,17 @@ export class DomainObject {
   }
 }
 
+
 export class WebPortal extends DomainObject {
   private _portalName: string;
   private _domainName: string;
-  private _webPageIds: Array<string>;
+  private _webPages: Array<{ id: string, name: string }>;
 
-  constructor(id: string, creationTime: Date, lastModifiedTime: Date, ts: number, portalName: string, domainName: string, webPageIds: Array<string>) {
+  constructor(id: string, creationTime: Date, lastModifiedTime: Date, ts: number, portalName: string, domainName: string, webPageIds: Array<{ id: string; name: string }>) {
     super(id, creationTime, lastModifiedTime, ts);
     this._portalName = portalName;
     this._domainName = domainName;
-    this._webPageIds = webPageIds;
+    this._webPages = webPageIds;
   }
 
   static get tableHeaders(): Array<string> {
@@ -88,12 +89,12 @@ export class WebPortal extends DomainObject {
     this._domainName = value;
   }
 
-  get webPageIds(): Array<string> {
-    return this._webPageIds;
+  get webPages(): Array<{ id: string; name: string }> {
+    return this._webPages;
   }
 
-  set webPageIds(value: Array<string>) {
-    this._webPageIds = value;
+  set webPages(value: Array<{ id: string; name: string }>) {
+    this._webPages = value;
   }
 }
 

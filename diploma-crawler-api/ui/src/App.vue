@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import {Component, Vue} from 'vue-property-decorator';
 import NavigationLinks from '@/components/NavigationLinks.vue';
 
 @Component({
@@ -33,10 +33,13 @@ export default class App extends Vue {
     const router: VueRouter = this.$router;
     return (router.options?.routes || [])
       .reduce((routes: { [key: string]: string | { [key: string]: string } }[], route: RouteConfig) => {
-        routes.push({
-          text: route.meta?.title,
-          href: { name: route.name || '' }
-        });
+        if (route.meta?.showInMenu) {
+          routes.push({
+            text: route.meta?.title,
+            href: {name: route.name || ''},
+            icon: route.meta?.icon
+          });
+        }
         return routes;
       }, []);
   }

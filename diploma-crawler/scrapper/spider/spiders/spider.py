@@ -27,6 +27,7 @@ class Spider(scrapy.Spider):
         web_page = WebPage()
         web_page.url = response.url
         web_page.page_text = response.text
+        web_page.resource_name = parsed_url.path
         web_page.meta_data = json.dumps(self._join_tags(soup.find_all("meta")))
         web_page.head = json.dumps(self._join_tags(soup.find_all("head")))
         web_page.web_portal = self.web_portal

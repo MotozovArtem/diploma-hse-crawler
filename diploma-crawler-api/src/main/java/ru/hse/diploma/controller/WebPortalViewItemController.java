@@ -2,12 +2,9 @@ package ru.hse.diploma.controller;
 
 import static java.util.Objects.requireNonNull;
 
-import ru.hse.diploma.domain.WebPage;
 import ru.hse.diploma.domain.WebPortal;
 import ru.hse.diploma.repository.WebPortalRepository;
 import ru.hse.diploma.util.ConverterService;
-import ru.hse.diploma.util.impl.WebPortalConverterService;
-import ru.hse.diploma.view.WebPageViewItem;
 import ru.hse.diploma.view.WebPortalViewItem;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

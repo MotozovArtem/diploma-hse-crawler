@@ -1,11 +1,9 @@
 package ru.hse.diploma.util.impl;
 
-import ru.hse.diploma.domain.WebPage;
 import ru.hse.diploma.domain.WebPortal;
 import ru.hse.diploma.repository.WebPageRepository;
 import ru.hse.diploma.util.ConverterService;
 import ru.hse.diploma.view.WebPortalViewItem;
-
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -41,11 +39,11 @@ public class WebPortalConverterService implements ConverterService<WebPortal, We
 		viewItem.setPortalName(webPortal.getPortalName());
 		viewItem.setDomainName(webPortal.getDomainName());
 		viewItem.setUsedKeywords(webPortal.getUsedKeywords());
-		List<String> webPageIds = webPageRepository.findAllByWebPortalId(webPortal.getId())
+		List<WebPortalViewItem.WebPageIdAndResourceName> webPageIds = webPageRepository.findAllByWebPortalId(webPortal.getId())
 				.stream()
-				.map(WebPage::getId)
+				.map(webPage -> new WebPortalViewItem.WebPageIdAndResourceName(webPage.getId(), webPage.getResourceName()))
 				.collect(Collectors.toList());
-		viewItem.setWebPageIds(webPageIds);
+		viewItem.setWebPages(webPageIds);
 		viewItem.setCreationTime(webPortal.getCreationTime());
 		viewItem.setLastModifiedTime(webPortal.getLastModifiedTime());
 		viewItem.setTs(webPortal.getTs());
