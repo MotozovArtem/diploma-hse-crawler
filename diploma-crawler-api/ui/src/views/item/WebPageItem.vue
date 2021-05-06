@@ -57,7 +57,7 @@ export default class WebPageItem extends Vue {
   @Prop({type: String}) readonly id!: string;
 
   private webPageId: string = '';
-  private webPage: WebPage;
+  private webPage: WebPage = null;
 
   private async created(): Promise<void> {
     this.webPageId = this.id;
