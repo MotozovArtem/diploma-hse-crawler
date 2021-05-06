@@ -20,15 +20,13 @@ const routes: Array<RouteConfig> = [
     path: '/web_portal',
     name: 'web_portals',
     component: () => import('@/views/WebPortalTable.vue'),
-    meta: { title: 'Web Portal Table' },
-    props: true
+    meta: { title: 'Web Portal Table' }
   },
   {
     path: '/web_page_analyse_result',
     name: 'web_page_analyse_results',
     component: () => import('@/views/WebPageAnalyseResultTable.vue'),
-    meta: { title: 'Web Page Analyse Result Table' },
-    props: true
+    meta: { title: 'Web Page Analyse Result Table' }
   }
 ];
 

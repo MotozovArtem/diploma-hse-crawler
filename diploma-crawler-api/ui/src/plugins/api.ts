@@ -30,9 +30,7 @@ export class Api extends BaseApi {
       url: params.name
     });
 
-    console.log(response._embedded);
-    // TODO: Нужно исправить получение конкретного списка
-    return response._embedded.web_portal;
+    return response;
   }
 }
 

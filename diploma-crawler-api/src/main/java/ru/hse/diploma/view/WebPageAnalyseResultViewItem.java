@@ -1,66 +1,89 @@
-package ru.hse.diploma.domain;
+package ru.hse.diploma.view;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import ru.hse.diploma.domain.AnalysePhase;
 
 import java.time.LocalDateTime;
 
 /**
- * Модель результатов анализа Веб-страницы.
+ * todo armotozov
  *
  * @author Artem Motozov
- * @since 2021.04.29
+ * @since 2021.05.06
  */
-@Document(collection = "web_page_analyse_results")
-public class WebPageAnalyseResult extends DomainObject {
+public class WebPageAnalyseResultViewItem {
+
+	/**
+	 * Идентификатор.
+	 */
+	private String id;
 
 	/**
 	 * Результат лемматизации.
 	 */
-	@Field("lemmatization")
 	private String lemmatization;
 
 	/**
 	 * Результат нормализации.
 	 */
-	@Field("normalization")
 	private String normalization;
 
 	/**
 	 * Текст очищенный от тегов.
 	 */
-	@Field("raw_text")
 	private String rawText;
 
 	/**
 	 * Текст ошибки.
 	 */
-	@Field("error_text")
 	private String errorText;
 
 	/**
 	 * Время начала анализа.
 	 */
-	@Field("start_analyse")
 	private LocalDateTime startAnalyse;
 
 	/**
 	 * Время завершения анализа.
 	 */
-	@Field("finish_analyse")
 	private LocalDateTime finishAnalyse;
 
 	/**
 	 * Фаза анализа.
 	 */
-	@Field("phase")
 	private AnalysePhase phase;
 
 	/**
-	 * Идентификатор веб-страницы.
+	 * todo armotozov.
 	 */
-	@Field("web_page")
 	private String webPageId;
+
+	/**
+	 * todo armotozov.
+	 */
+	private String webPageName;
+
+	/**
+	 * Время создания записи.
+	 */
+	private LocalDateTime creationTime;
+
+	/**
+	 * Время последнего изменения записи.
+	 */
+	private LocalDateTime lastModifiedTime;
+
+	/**
+	 * Версия.
+	 */
+	private Long ts;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getLemmatization() {
 		return lemmatization;
@@ -126,9 +149,41 @@ public class WebPageAnalyseResult extends DomainObject {
 		this.webPageId = webPageId;
 	}
 
+	public String getWebPageName() {
+		return webPageName;
+	}
+
+	public void setWebPageName(String webPageName) {
+		this.webPageName = webPageName;
+	}
+
+	public LocalDateTime getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(LocalDateTime creationTime) {
+		this.creationTime = creationTime;
+	}
+
+	public LocalDateTime getLastModifiedTime() {
+		return lastModifiedTime;
+	}
+
+	public void setLastModifiedTime(LocalDateTime lastModifiedTime) {
+		this.lastModifiedTime = lastModifiedTime;
+	}
+
+	public Long getTs() {
+		return ts;
+	}
+
+	public void setTs(Long ts) {
+		this.ts = ts;
+	}
+
 	@Override
 	public String toString() {
-		return "WebPageAnalyseResult{" +
+		return "WebPageAnalyseResultViewItem{" +
 				"id='" + id + '\'' +
 				", lemmatization='" + lemmatization + '\'' +
 				", normalization='" + normalization + '\'' +
@@ -137,7 +192,8 @@ public class WebPageAnalyseResult extends DomainObject {
 				", startAnalyse=" + startAnalyse +
 				", finishAnalyse=" + finishAnalyse +
 				", phase=" + phase +
-				", webPage=" + webPageId +
+				", webPageId='" + webPageId + '\'' +
+				", webPageName='" + webPageName + '\'' +
 				", creationTime=" + creationTime +
 				", lastModifiedTime=" + lastModifiedTime +
 				", ts=" + ts +

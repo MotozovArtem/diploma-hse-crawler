@@ -1,3 +1,4 @@
 public/**
 src/model/**
+src/*
 vue.config.js

@@ -59,11 +59,13 @@ export class DomainObject {
 export class WebPortal extends DomainObject {
   private _portalName: string;
   private _domainName: string;
+  private _webPageIds: Array<string>;
 
-  constructor(id: string, creationTime: Date, lastModifiedTime: Date, ts: number, portalName: string, domainName: string) {
+  constructor(id: string, creationTime: Date, lastModifiedTime: Date, ts: number, portalName: string, domainName: string, webPageIds: Array<string>) {
     super(id, creationTime, lastModifiedTime, ts);
     this._portalName = portalName;
     this._domainName = domainName;
+    this._webPageIds = webPageIds;
   }
 
   static get tableHeaders(): Array<string> {
@@ -85,6 +87,14 @@ export class WebPortal extends DomainObject {
   set domainName(value: string) {
     this._domainName = value;
   }
+
+  get webPageIds(): Array<string> {
+    return this._webPageIds;
+  }
+
+  set webPageIds(value: Array<string>) {
+    this._webPageIds = value;
+  }
 }
 
 export class WebPageAnalyseResult extends DomainObject {
@@ -95,8 +105,9 @@ export class WebPageAnalyseResult extends DomainObject {
   private _startAnalyse: Date | null;
   private _finishAnalyse: Date | null;
   private _phase: AnalysePhase;
+  private _webPageId: string;
 
-  constructor(id: string, creationTime: Date, lastModifiedTime: Date, ts: number, lemmatization: string | null, normalization: string | null, rawText: string | null, errorText: string | null, startAnalyse: Date | null, finishAnalyse: Date | null, phase: AnalysePhase) {
+  constructor(id: string, creationTime: Date, lastModifiedTime: Date, ts: number, lemmatization: string | null, normalization: string | null, rawText: string | null, errorText: string | null, startAnalyse: Date | null, finishAnalyse: Date | null, phase: AnalysePhase, webPageId: string) {
     super(id, creationTime, lastModifiedTime, ts);
     this._lemmatization = lemmatization;
     this._normalization = normalization;
@@ -105,6 +116,7 @@ export class WebPageAnalyseResult extends DomainObject {
     this._startAnalyse = startAnalyse;
     this._finishAnalyse = finishAnalyse;
     this._phase = phase;
+    this._webPageId = webPageId;
   }
 
   static get tableHeaders(): Array<string> {
@@ -174,19 +186,23 @@ export class WebPage extends DomainObject {
   private _metaData: string;
   private _head: string;
   private _pageText: string;
-  private _webPortal: WebPortal;
-  private _webPageAnalyseResult: WebPageAnalyseResult | null;
+  private _webPortalId: string | null;
+  private _webPortalName: string | null;
+  private _webPageAnalyseResultId: string | null;
+  private _webPageAnalyseResultName: string | null;
 
 
-  constructor(id: string, creationTime: Date, lastModifiedTime: Date, ts: number, url: string, resourceName: string, metaData: string, head: string, pageText: string, webPortal: WebPortal, webPageAnalyseResult: WebPageAnalyseResult | null) {
+  constructor(id: string, creationTime: Date, lastModifiedTime: Date, ts: number, url: string, resourceName: string, metaData: string, head: string, pageText: string, webPortalId: string, webPortalName: string, webPageAnalyseResultId: string, webPageAnalyseResultName: string) {
     super(id, creationTime, lastModifiedTime, ts);
     this._url = url;
     this._resourceName = resourceName;
     this._metaData = metaData;
     this._head = head;
     this._pageText = pageText;
-    this._webPortal = webPortal;
-    this._webPageAnalyseResult = webPageAnalyseResult;
+    this._webPortalId = webPortalId;
+    this._webPortalName = webPortalName;
+    this._webPageAnalyseResultId = webPageAnalyseResultId;
+    this._webPageAnalyseResultName = webPageAnalyseResultName;
   }
 
   static get tableHeaders(): Array<string> {
@@ -233,19 +249,35 @@ export class WebPage extends DomainObject {
     this._pageText = value;
   }
 
-  get webPortal(): WebPortal {
-    return this._webPortal;
+  get webPortalId(): string | null {
+    return this._webPortalId;
   }
 
-  set webPortal(value: WebPortal) {
-    this._webPortal = value;
+  set webPortalId(value: string | null) {
+    this._webPortalId = value;
   }
 
-  get webPageAnalyseResult(): WebPageAnalyseResult | null {
-    return this._webPageAnalyseResult;
+  get webPortalName(): string | null {
+    return this._webPortalName;
   }
 
-  set webPageAnalyseResult(value: WebPageAnalyseResult | null) {
-    this._webPageAnalyseResult = value;
+  set webPortalName(value: string | null) {
+    this._webPortalName = value;
+  }
+
+  get webPageAnalyseResultId(): string | null {
+    return this._webPageAnalyseResultId;
+  }
+
+  set webPageAnalyseResultId(value: string | null) {
+    this._webPageAnalyseResultId = value;
+  }
+
+  get webPageAnalyseResultName(): string | null {
+    return this._webPageAnalyseResultName;
+  }
+
+  set webPageAnalyseResultName(value: string | null) {
+    this._webPageAnalyseResultName = value;
   }
 }

@@ -1,57 +1,87 @@
-package ru.hse.diploma.domain;
+package ru.hse.diploma.view;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import java.time.LocalDateTime;
 
 /**
- * Модель Веб-страницы.
+ * todo armotozov
  *
  * @author Artem Motozov
- * @since 2021.04.29
+ * @since 2021.05.06
  */
-@Document(collection = "web_pages")
-public class WebPage extends DomainObject {
+public class WebPageViewItem {
+
+	/**
+	 * Идентификатор.
+	 */
+	private String id;
+
 	/**
 	 * URL веб-страницы.
 	 */
-	@Field("url")
 	private String url;
 
 	/**
 	 * Ресурс веб-страницы.
 	 */
-	@Field("resource_name")
 	private String resourceName;
 
 	/**
 	 * Метаданные веб-страницы.
 	 */
-	@Field("meta_data")
 	private String metaData;
 
 	/**
 	 * Заголовок веб-страницы.
 	 */
-	@Field("head")
 	private String head;
 
 	/**
 	 * HTML страница.
 	 */
-	@Field("page_text")
 	private String pageText;
 
 	/**
-	 * Идентификатор Веб-портала.
+	 * Веб-портал.
 	 */
-	@Field("web_portal")
 	private String webPortalId;
 
 	/**
-	 * Идентификатор Результата анализа веб-страницы.
+	 * Веб-портал.
 	 */
-	@Field("web_page_analyse_result")
+	private String webPortalName;
+
+	/**
+	 * Результаты анализа веб-страницы.
+	 */
 	private String webPageAnalyseResultId;
+
+	/**
+	 * Результаты анализа веб-страницы.
+	 */
+	private String webPageAnalyseResultName;
+
+	/**
+	 * Время создания записи.
+	 */
+	private LocalDateTime creationTime;
+
+	/**
+	 * Время последнего изменения записи.
+	 */
+	private LocalDateTime lastModifiedTime;
+
+	/**
+	 * Версия.
+	 */
+	private Long ts;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getUrl() {
 		return url;
@@ -101,6 +131,14 @@ public class WebPage extends DomainObject {
 		this.webPortalId = webPortalId;
 	}
 
+	public String getWebPortalName() {
+		return webPortalName;
+	}
+
+	public void setWebPortalName(String webPortalName) {
+		this.webPortalName = webPortalName;
+	}
+
 	public String getWebPageAnalyseResultId() {
 		return webPageAnalyseResultId;
 	}
@@ -109,9 +147,41 @@ public class WebPage extends DomainObject {
 		this.webPageAnalyseResultId = webPageAnalyseResultId;
 	}
 
+	public String getWebPageAnalyseResultName() {
+		return webPageAnalyseResultName;
+	}
+
+	public void setWebPageAnalyseResultName(String webPageAnalyseResultName) {
+		this.webPageAnalyseResultName = webPageAnalyseResultName;
+	}
+
+	public LocalDateTime getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(LocalDateTime creationTime) {
+		this.creationTime = creationTime;
+	}
+
+	public LocalDateTime getLastModifiedTime() {
+		return lastModifiedTime;
+	}
+
+	public void setLastModifiedTime(LocalDateTime lastModifiedTime) {
+		this.lastModifiedTime = lastModifiedTime;
+	}
+
+	public Long getTs() {
+		return ts;
+	}
+
+	public void setTs(Long ts) {
+		this.ts = ts;
+	}
+
 	@Override
 	public String toString() {
-		return "WebPage{" +
+		return "WebPageViewItem{" +
 				"id='" + id + '\'' +
 				", url='" + url + '\'' +
 				", resourceName='" + resourceName + '\'' +
@@ -119,7 +189,9 @@ public class WebPage extends DomainObject {
 				", head='" + head + '\'' +
 				", pageText='" + pageText + '\'' +
 				", webPortalId='" + webPortalId + '\'' +
+				", webPortalName='" + webPortalName + '\'' +
 				", webPageAnalyseResultId='" + webPageAnalyseResultId + '\'' +
+				", webPageAnalyseResultName='" + webPageAnalyseResultName + '\'' +
 				", creationTime=" + creationTime +
 				", lastModifiedTime=" + lastModifiedTime +
 				", ts=" + ts +

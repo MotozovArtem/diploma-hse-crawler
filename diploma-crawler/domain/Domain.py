@@ -13,15 +13,17 @@ class DomainObject(Document):
     creation_time = DateTimeField(default=datetime.datetime.utcnow)
     ts = IntField(default=0)
 
-    meta = {'allow_inheritance': True}
+    meta = {'allow_inheritance': True, 'abstract': True}
 
 
 class WebPortal(DomainObject):
     '''Доменный класс WebPortal'''
     _class = StringField(default="ru.hse.diploma.domain.WebPortal")
     portal_name = StringField(max_length=500)
-    domain_name = StringField(max_length=255)
+    domain_name = StringField(max_length=255, unique = True)
     used_keywords = StringField(max_length=2000)
+
+    meta = {'collection': "web_portals"}
 
 
 class WebPageAnalyseResult(DomainObject):
@@ -36,6 +38,8 @@ class WebPageAnalyseResult(DomainObject):
     phase = StringField()
     web_page = ReferenceField("WebPage")
 
+    meta = {'collection': 'web_page_analyse_results'}
+
 
 class WebPage(DomainObject):
     '''Доменный класс WebPage.'''
@@ -47,6 +51,8 @@ class WebPage(DomainObject):
     page_text = StringField()
     web_portal = ReferenceField("WebPortal")
     web_portal_analyse_result = ReferenceField("WebPageAnalyseResult")
+
+    meta = {'collection': 'web_pages'}
 
 
 def update_last_modified_time(sender, document):

@@ -11,7 +11,7 @@ import java.util.List;
  * @author Artem Motozov
  * @since 2021.04.29
  */
-@Document(collection = "domain_object")
+@Document(collection = "web_portals")
 public class WebPortal extends DomainObject {
 	/**
 	 * Наименование веб-портала.
@@ -53,5 +53,18 @@ public class WebPortal extends DomainObject {
 
 	public void setUsedKeywords(List<String> usedKeywords) {
 		this.usedKeywords = usedKeywords;
+	}
+
+	@Override
+	public String toString() {
+		return "WebPortal{" +
+				"id='" + id + '\'' +
+				", portalName='" + portalName + '\'' +
+				", domainName='" + domainName + '\'' +
+				", usedKeywords=" + usedKeywords +
+				", creationTime=" + creationTime +
+				", lastModifiedTime=" + lastModifiedTime +
+				", ts=" + ts +
+				'}';
 	}
 }

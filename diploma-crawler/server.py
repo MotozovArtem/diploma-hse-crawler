@@ -59,7 +59,7 @@ def start_crawl():
         return Response(status=406)
 
 @app.route("/search_sites", methods=["POST"])
-def start_crawl():
+def search_sites():
     if request.is_json:
         # todo: add logic
         return Response(status=200)

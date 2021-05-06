@@ -3,7 +3,11 @@
     :headers="tableHeaders"
     :items="webPortals"
     :loading="isLoading"
-  />
+  >
+    <template v-slot:item.id="{ item }">
+      <span>{{ item.id != null && item.id.length > 8 ? item.id.substring(0,8) + "...": item.id }}</span>
+    </template>
+  </v-data-table>
 </template>
 
 <script lang='ts'>
@@ -18,7 +22,7 @@ export default class WebPortalTable extends Mixins(Table) {
   private webPortals: WebPortal[] = [];
 
   protected tableHeaders: TableHeader[] = [
-    // { value: 'id', text: 'ID' },
+    { value: 'id', text: 'ID' },
     { value: 'portalName', text: 'Portal Name' },
     { value: 'domainName', text: 'Domain Name' },
     { value: 'creationTime', text: 'Creation Time' },
@@ -31,7 +35,7 @@ export default class WebPortalTable extends Mixins(Table) {
 
   private async loadTasks(): Promise<void> {
     this.isLoading = true;
-    this.webPortals = await this.$api.getDomainObjectList({ name: 'web_portal' });
+    this.webPortals = await this.$api.getDomainObjectList({ name: 'web_portal_view' });
     this.isLoading = false;
     console.log(this.webPortals);
   }
