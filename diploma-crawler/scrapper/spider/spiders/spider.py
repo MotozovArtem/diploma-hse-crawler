@@ -1,12 +1,14 @@
-import json
-import logging
-import uuid
 from urllib.parse import urlparse, urljoin
-
-import scrapy
 from bs4 import BeautifulSoup
 from scrapy import signals
 from domain.Domain import WebPage, WebPortal
+
+import json
+import logging
+import uuid
+import requests
+import os
+import scrapy
 
 
 class Spider(scrapy.Spider):
@@ -33,10 +35,22 @@ class Spider(scrapy.Spider):
         web_page.web_portal = self.web_portal
 
         web_page.save()
+        # сообщаем,что страницу можно предобработать
+        self._send_proprocess_event(web_page._DomainObject__id)
+
         # находим все ссылки на странице
         urls = soup.find_all('a', href=True)
         for url in urls:
             yield scrapy.Request(urljoin(response.url, url["href"]), self.parse)
+
+    def _send_proprocess_event(self, web_page_id: str) -> None:
+        crawler_preprocessor_host = os.getenv("PREPROCESSOR_HOST")
+        crawler_preprocessor_port = os.getenv("PREPROCESSOR_PORT")
+        target_url = f'http://{crawler_preprocessor_host}:{crawler_preprocessor_port}/register_preprocess_task'
+        data = {
+            "web_page_id": str(web_page_id)
+        }
+        requests.post(target_url, json=data)
 
     def _join_tags(self, tags_list):
         result = dict()

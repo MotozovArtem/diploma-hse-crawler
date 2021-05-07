@@ -1,0 +1,1 @@
+docker build -t rienelmot24/diploma-crawler-preprocessor:0.0.1 .

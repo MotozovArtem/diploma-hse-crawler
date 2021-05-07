@@ -12,6 +12,7 @@ import logging
 import requests
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
+import os
 
 import crochet
 crochet.setup()
@@ -21,7 +22,9 @@ crochet.setup()
 app = Flask(__name__)
 
 DB = Database()
-app.teardown_appcontext
+
+if os.getenv("PREPROCESSOR_HOST") is None:
+    raise RuntimeError('PREPROCESSOR_HOST cannot be None')
 
 # Создание объекта-стартера для сборщиков данных
 crawl_runner = CrawlerRunner()
@@ -44,19 +47,31 @@ def start_crawl():
         parsed_url = urlparse(target_url)
         app.logger.info("Receive request with - %s", target_url)
 
-        response = requests.get(request_parameters["target"])
-        soup = BeautifulSoup(response.text, "lxml")
-        web_portal = WebPortal()
-        web_portal.domain_name = parsed_url.hostname
-        web_portal.portal_name = soup.find("title").text
-        web_portal.save()
-        app.logger.info("Saved WebPortal (id:%s)", web_portal._DomainObject__id)
+        try:
+            saved_portal = WebPortal.objects.get(
+                domain_name=parsed_url.hostname)
+        except:
+            saved_portal = None
 
-        crawl_target_url(target_url, web_portal)
+        if saved_portal is None:
+            response = requests.get(request_parameters["target"])
+            soup = BeautifulSoup(response.text, "lxml")
+            web_portal = WebPortal()
+            web_portal.domain_name = parsed_url.hostname
+            web_portal.portal_name = soup.find("title").text
+            web_portal.save()
+            app.logger.info("Saved WebPortal (id:%s)",
+                            web_portal._DomainObject__id)
+            crawl_target_url(target_url, web_portal)
+        else:
+            app.logger.info("Loaded WebPortal from database (id: %s)",
+                            saved_portal._DomainObject__id)
+            crawl_target_url(target_url, saved_portal)
         return Response(status=200)
     else:
         app.logger.info("Received non-json data")
         return Response(status=406)
+
 
 @app.route("/search_sites", methods=["POST"])
 def search_sites():
@@ -72,9 +87,12 @@ def search_sites():
 def crawl_target_url(target_url: str, web_portal: WebPortal):
     dispatcher.connect(_crawler_result, signal=signals.item_scraped)
 
+    app.logger.info("Configuring Spider")
     Spider.start_urls = [target_url]
     Spider.web_portal = web_portal
     Spider.allowed_domains = [urlparse(target_url).hostname]
+    app.logger.info("Starting crawling WebPortal (id: %s)",
+                    web_portal._DomainObject__id)
     crawl_runner.crawl(Spider)
 
 

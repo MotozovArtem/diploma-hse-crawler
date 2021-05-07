@@ -9,13 +9,52 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
-  crawler-api:
-    container_name: crawler_api
-    image: rienelmot24/diploma-crawler-api
+  redis-db:
+    container_name: redis_db
+    image: redis:6.0-alpine
     ports:
-      - "8080:8080"
+      - "6379:6379"
+  # crawler-api:
+  #   container_name: crawler_api
+  #   image: rienelmot24/diploma-crawler-api:0.0.1
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     MONGO_DB_HOST: crawler_db
+  #     DB_USERNAME: admin
+  #     DB_PASSWORD: admin
+  #   depends_on: 
+  #     - mongo-db
+  worker:
+    container_name: crawler_preprocessor_worker
+    image: rienelmot24/diploma-crawler-preprocessor:0.0.1
+    environment: 
+      MONGO_DB_HOST: crawler_db
+    depends_on: 
+      - redis-db
+    command: rq worker --name worker --url redis://redis_db:6379/0; 
+  crawler-preprocessor:
+    container_name: crawler_preprocessor
+    image: rienelmot24/diploma-crawler-preprocessor:0.0.1
     environment:
-      DB_USERNAME: admin
-      DB_PASSWORD: admin
+      REDIS_HOST: redis_db
+      MONGO_DB_HOST: crawler_db
+      FLASK_RUN_PORT: 5001
+    ports: 
+      - "5001:5001"
+    depends_on: 
+      - mongo-db
+      - worker
+      - crawler-server
+  crawler-server:
+    container_name: crawler_server
+    image: rienelmot24/diploma-crawler:0.0.1
+    environment:
+      PREPROCESSOR_HOST: crawler_preprocessor
+      PREPROCESSOR_PORT: 5001
+      MONGO_DB_HOST: crawler_db
+      FLASK_RUN_PORT: 5000
+    ports:
+      - "5000:5000"
     depends_on: 
       - mongo-db

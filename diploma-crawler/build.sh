@@ -1,1 +1,1 @@
-docker build -t diploma-crawler:0.0.1 .
+docker build -t rienelmot24/diploma-crawler:0.0.1 .
