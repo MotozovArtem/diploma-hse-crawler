@@ -66,8 +66,8 @@ import {WebPageAnalyseResult} from "@/model/model";
 export default class WebPageAnalyseResultItem extends Vue {
   @Prop({type: String}) readonly id!: string;
 
-  private webPageAnalyseResultId: string;
-  private webPageAnalyseResult: WebPageAnalyseResult;
+  private webPageAnalyseResultId: string = '';
+  private webPageAnalyseResult: WebPageAnalyseResult = null;
 
   private async created(): Promise<void> {
     this.webPageAnalyseResultId = this.id;
