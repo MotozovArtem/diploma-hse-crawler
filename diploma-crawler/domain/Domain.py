@@ -4,6 +4,17 @@ from mongoengine import StringField, UUIDField, DateTimeField, ReferenceField, I
 import uuid
 import datetime
 
+ANALYSE_PHASE = {
+    "ANALYSE_START": "Анализ начат",
+    "ANALYSE_FINISHED": "Анализ закончен",
+    "TOKENIZATION": "Стадия токенизации",
+    "LEMMATIZATION": "Стадия лемматизации",
+    "NORMALIZATION": "Стадия нормализации",
+    "HTML_CLEANING": "Очистка текста от HTML тегов",
+    "WORD_COUNTING": "Подсчет количества слов",
+    "ANALYSE_FAILED": "Ошибка анализа"
+}
+
 
 class DomainObject(Document):
     '''Абстрактный класс доменного объекта'''
@@ -20,7 +31,7 @@ class WebPortal(DomainObject):
     '''Доменный класс WebPortal'''
     _class = StringField(default="ru.hse.diploma.domain.WebPortal")
     portal_name = StringField(max_length=500)
-    domain_name = StringField(max_length=255, unique = True)
+    domain_name = StringField(max_length=255, unique=True)
     used_keywords = StringField(max_length=2000)
 
     meta = {'collection': "web_portals"}
@@ -31,6 +42,8 @@ class WebPageAnalyseResult(DomainObject):
     _class = StringField(default="ru.hse.diploma.domain.WebPageAnalyseResult")
     lemmatization_result = StringField()
     normalization_result = StringField()
+    tokenization_result = StringField()
+    word_count = StringField()
     raw_text = StringField()
     error_text = StringField()
     start_analyse = DateTimeField()
