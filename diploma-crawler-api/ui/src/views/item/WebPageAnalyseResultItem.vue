@@ -40,11 +40,14 @@
         <v-textarea label="Error text" v-model="webPageAnalyseResult.errorText" outlined readonly/>
       </v-col>
     </v-row>
-<!--    <v-row>-->
-<!--      <v-col>-->
-<!--        <v-text-field label="Word frequency analyse" v-model="webPageAnalyseResult." readonly/>-->
-<!--      </v-col>-->
-<!--    </v-row>-->
+    <v-row>
+      <v-col>
+<!--        <v-data-table v-model="webPageAnalyseResult.wordCount">-->
+
+<!--        </v-data-table>-->
+        <v-text-field label="Word frequency analyse" v-model="webPageAnalyseResult.wordCount" readonly/>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col>
         <v-text-field label="Creation Time" v-model="webPageAnalyseResult.creationTime" readonly/>

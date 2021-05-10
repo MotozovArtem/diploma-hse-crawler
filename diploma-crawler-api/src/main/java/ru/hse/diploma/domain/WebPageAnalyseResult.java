@@ -17,14 +17,26 @@ public class WebPageAnalyseResult extends DomainObject {
 	/**
 	 * Результат лемматизации.
 	 */
-	@Field("lemmatization")
+	@Field("tokenization_result")
+	private String tokenization;
+
+	/**
+	 * Результат лемматизации.
+	 */
+	@Field("lemmatization_result")
 	private String lemmatization;
 
 	/**
 	 * Результат нормализации.
 	 */
-	@Field("normalization")
+	@Field("normalization_result")
 	private String normalization;
+
+	/**
+	 * Результат подсчета слов.
+	 */
+	@Field("word_count")
+	private String wordCount;
 
 	/**
 	 * Текст очищенный от тегов.
@@ -62,6 +74,14 @@ public class WebPageAnalyseResult extends DomainObject {
 	@Field("web_page")
 	private String webPageId;
 
+	public String getTokenization() {
+		return tokenization;
+	}
+
+	public void setTokenization(String tokenization) {
+		this.tokenization = tokenization;
+	}
+
 	public String getLemmatization() {
 		return lemmatization;
 	}
@@ -76,6 +96,14 @@ public class WebPageAnalyseResult extends DomainObject {
 
 	public void setNormalization(String normalization) {
 		this.normalization = normalization;
+	}
+
+	public String getWordCount() {
+		return wordCount;
+	}
+
+	public void setWordCount(String wordCount) {
+		this.wordCount = wordCount;
 	}
 
 	public String getRawText() {
@@ -130,14 +158,16 @@ public class WebPageAnalyseResult extends DomainObject {
 	public String toString() {
 		return "WebPageAnalyseResult{" +
 				"id='" + id + '\'' +
+				", tokenization='" + tokenization + '\'' +
 				", lemmatization='" + lemmatization + '\'' +
 				", normalization='" + normalization + '\'' +
+				", wordCount='" + wordCount + '\'' +
 				", rawText='" + rawText + '\'' +
 				", errorText='" + errorText + '\'' +
 				", startAnalyse=" + startAnalyse +
 				", finishAnalyse=" + finishAnalyse +
 				", phase=" + phase +
-				", webPage=" + webPageId +
+				", webPageId='" + webPageId + '\'' +
 				", creationTime=" + creationTime +
 				", lastModifiedTime=" + lastModifiedTime +
 				", ts=" + ts +

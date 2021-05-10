@@ -99,24 +99,29 @@ export class WebPortal extends DomainObject {
 }
 
 export class WebPageAnalyseResult extends DomainObject {
-  private _lemmatization: string | null;
-  private _normalization: string | null;
+  private _lemmatization: Map<string, string> | null;
+  private _normalization: Array<string> | null;
+  private _tokenize: { sentence_tokenize: Map<string, Array<string>>, word_tokenize: Map<string, Array<string>> };
   private _rawText: string | null;
   private _errorText: string | null;
   private _startAnalyse: Date | null;
   private _finishAnalyse: Date | null;
   private _phase: AnalysePhase;
+  private _wordCount: { word_count: Array<Map<string, string>>, unique_word: number } | null;
   private _webPageId: string;
 
-  constructor(id: string, creationTime: Date, lastModifiedTime: Date, ts: number, lemmatization: string | null, normalization: string | null, rawText: string | null, errorText: string | null, startAnalyse: Date | null, finishAnalyse: Date | null, phase: AnalysePhase, webPageId: string) {
+
+  constructor(id: string, creationTime: Date, lastModifiedTime: Date, ts: number, lemmatization: Map<string, string> | null, normalization: Array<string> | null, tokenize: { sentence_tokenize: Map<string, Array<string>>; word_tokenize: Map<string, Array<string>> }, rawText: string | null, errorText: string | null, startAnalyse: Date | null, finishAnalyse: Date | null, phase: AnalysePhase, wordCount: { word_count: Array<Map<string, string>>; unique_word: number } | null, webPageId: string) {
     super(id, creationTime, lastModifiedTime, ts);
     this._lemmatization = lemmatization;
     this._normalization = normalization;
+    this._tokenize = tokenize;
     this._rawText = rawText;
     this._errorText = errorText;
     this._startAnalyse = startAnalyse;
     this._finishAnalyse = finishAnalyse;
     this._phase = phase;
+    this._wordCount = wordCount;
     this._webPageId = webPageId;
   }
 
@@ -124,20 +129,29 @@ export class WebPageAnalyseResult extends DomainObject {
     return ["ID", "Lemmatization", "Normalization", "Raw Text", "Error Text", "Start Analyse", "Finish Analyse", "Creation Time", "Last Modified Time"]
   }
 
-  get lemmatization(): string | null {
+
+  get lemmatization(): Map<string, string> | null {
     return this._lemmatization;
   }
 
-  set lemmatization(value: string | null) {
+  set lemmatization(value: Map<string, string> | null) {
     this._lemmatization = value;
   }
 
-  get normalization(): string | null {
+  get normalization(): Array<string> | null {
     return this._normalization;
   }
 
-  set normalization(value: string | null) {
+  set normalization(value: Array<string> | null) {
     this._normalization = value;
+  }
+
+  get tokenize(): { sentence_tokenize: Map<string, Array<string>>; word_tokenize: Map<string, Array<string>> } {
+    return this._tokenize;
+  }
+
+  set tokenize(value: { sentence_tokenize: Map<string, Array<string>>; word_tokenize: Map<string, Array<string>> }) {
+    this._tokenize = value;
   }
 
   get rawText(): string | null {
@@ -178,6 +192,22 @@ export class WebPageAnalyseResult extends DomainObject {
 
   set phase(value: AnalysePhase) {
     this._phase = value;
+  }
+
+  get wordCount(): { word_count: Array<Map<string, string>>; unique_word: number } | null {
+    return this._wordCount;
+  }
+
+  set wordCount(value: { word_count: Array<Map<string, string>>; unique_word: number } | null) {
+    this._wordCount = value;
+  }
+
+  get webPageId(): string {
+    return this._webPageId;
+  }
+
+  set webPageId(value: string) {
+    this._webPageId = value;
   }
 }
 

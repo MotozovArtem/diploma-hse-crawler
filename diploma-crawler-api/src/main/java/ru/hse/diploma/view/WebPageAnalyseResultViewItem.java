@@ -3,6 +3,7 @@ package ru.hse.diploma.view;
 import ru.hse.diploma.domain.AnalysePhase;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * todo armotozov
@@ -12,15 +13,89 @@ import java.time.LocalDateTime;
  */
 public class WebPageAnalyseResultViewItem {
 
+//	public static class WordCount {
+//		public final Map<String, Integer> wordCount;
+//
+//		public final Integer uniqueWords;
+//
+//		public WordCount(Map<String, Integer> wordCount, Integer uniqueWords) {
+//			this.wordCount = wordCount;
+//			this.uniqueWords = uniqueWords;
+//		}
+//
+//		@Override
+//		public String toString() {
+//			return "WordCount{" +
+//					"wordCount=" + wordCount +
+//					", uniqueWords=" + uniqueWords +
+//					'}';
+//		}
+//	}
+//
+//	public static class TokenizationResult {
+//		public final Map<String, String> sentenceTokenize;
+//
+//		public final Map<String, String> wordTokenize;
+//
+//		public TokenizationResult(Map<String, String> sentenceTokenize, Map<String, String> wordTokenize) {
+//			this.sentenceTokenize = sentenceTokenize;
+//			this.wordTokenize = wordTokenize;
+//		}
+//
+//		@Override
+//		public String toString() {
+//			return "TokenizationResult{" +
+//					"sentenceTokenize=" + sentenceTokenize +
+//					", wordTokenize=" + wordTokenize +
+//					'}';
+//		}
+//	}
+//
+//	public static class LemmatizationResult {
+//		public final Map<String, String> lemmatization;
+//
+//		public LemmatizationResult(Map<String, String> lemmatization) {
+//			this.lemmatization = lemmatization;
+//		}
+//
+//		@Override
+//		public String toString() {
+//			return "LemmatizationResult{" +
+//					"lemmatization=" + lemmatization +
+//					'}';
+//		}
+//	}
+
 	/**
 	 * Идентификатор.
 	 */
 	private String id;
+//
+//	/**
+//	 * Результат лемматизации.
+//	 */
+//	private TokenizationResult tokenization;
+//
+//	/**
+//	 * Результат лемматизации.
+//	 */
+//	private LemmatizationResult lemmatization;
+
+
+	/**
+	 * Результат лемматизации.
+	 */
+	private String tokenization;
 
 	/**
 	 * Результат лемматизации.
 	 */
 	private String lemmatization;
+
+//	/**
+//	 * Результат нормализации.
+//	 */
+//	private List<String> normalization;
 
 	/**
 	 * Результат нормализации.
@@ -53,12 +128,17 @@ public class WebPageAnalyseResultViewItem {
 	private AnalysePhase phase;
 
 	/**
-	 * todo armotozov.
+	 * Результат подсчета слов.
+	 */
+	private String wordCount;
+
+	/**
+	 * Идентификатор веб-страницы.
 	 */
 	private String webPageId;
 
 	/**
-	 * todo armotozov.
+	 * Наименование веб-страницы.
 	 */
 	private String webPageName;
 
@@ -85,6 +165,30 @@ public class WebPageAnalyseResultViewItem {
 		this.id = id;
 	}
 
+//	public TokenizationResult getTokenization() {
+//		return tokenization;
+//	}
+//
+//	public void setTokenization(TokenizationResult tokenization) {
+//		this.tokenization = tokenization;
+//	}
+//
+//	public LemmatizationResult getLemmatization() {
+//		return lemmatization;
+//	}
+//
+//	public void setLemmatization(LemmatizationResult lemmatization) {
+//		this.lemmatization = lemmatization;
+//	}
+
+	public String getTokenization() {
+		return tokenization;
+	}
+
+	public void setTokenization(String tokenization) {
+		this.tokenization = tokenization;
+	}
+
 	public String getLemmatization() {
 		return lemmatization;
 	}
@@ -92,6 +196,15 @@ public class WebPageAnalyseResultViewItem {
 	public void setLemmatization(String lemmatization) {
 		this.lemmatization = lemmatization;
 	}
+
+//	public List<String> getNormalization() {
+//		return normalization;
+//	}
+//
+//	public void setNormalization(List<String> normalization) {
+//		this.normalization = normalization;
+//	}
+
 
 	public String getNormalization() {
 		return normalization;
@@ -141,6 +254,22 @@ public class WebPageAnalyseResultViewItem {
 		this.phase = phase;
 	}
 
+//	public WordCount getWordCount() {
+//		return wordCount;
+//	}
+//
+//	public void setWordCount(WordCount wordCount) {
+//		this.wordCount = wordCount;
+//	}
+
+	public String getWordCount() {
+		return wordCount;
+	}
+
+	public void setWordCount(String wordCount) {
+		this.wordCount = wordCount;
+	}
+
 	public String getWebPageId() {
 		return webPageId;
 	}
@@ -185,8 +314,9 @@ public class WebPageAnalyseResultViewItem {
 	public String toString() {
 		return "WebPageAnalyseResultViewItem{" +
 				"id='" + id + '\'' +
-				", lemmatization='" + lemmatization + '\'' +
-				", normalization='" + normalization + '\'' +
+				", tokenization=" + tokenization +
+				", lemmatization=" + lemmatization +
+				", normalization=" + normalization +
 				", rawText='" + rawText + '\'' +
 				", errorText='" + errorText + '\'' +
 				", startAnalyse=" + startAnalyse +

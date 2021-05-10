@@ -34,11 +34,18 @@ public class WebPageAnalyseResultConverterService implements ConverterService<We
 	public WebPageAnalyseResultViewItem toViewItem(WebPageAnalyseResult webPageAnalyseResult) {
 		WebPageAnalyseResultViewItem viewItem = new WebPageAnalyseResultViewItem();
 		viewItem.setId(webPageAnalyseResult.getId());
-		viewItem.setLemmatization(webPageAnalyseResult.getLemmatization());
+		if (webPageAnalyseResult.getLemmatization() != null) {
+			viewItem.setLemmatization(webPageAnalyseResult.getLemmatization());
+		}
 		viewItem.setErrorText(webPageAnalyseResult.getErrorText());
 		viewItem.setRawText(webPageAnalyseResult.getRawText());
-		viewItem.setNormalization(webPageAnalyseResult.getNormalization());
+		if (webPageAnalyseResult.getNormalization() != null) {
+			viewItem.setNormalization(webPageAnalyseResult.getNormalization());
+		}
 		viewItem.setPhase(webPageAnalyseResult.getPhase());
+		if (webPageAnalyseResult.getWordCount() != null) {
+			viewItem.setWordCount(webPageAnalyseResult.getWordCount());
+		}
 		WebPage webPage = webPageRepository.findById(webPageAnalyseResult.getWebPageId()).orElseThrow();
 		viewItem.setWebPageId(webPageAnalyseResult.getWebPageId());
 		viewItem.setWebPageName(webPage.getUrl());
