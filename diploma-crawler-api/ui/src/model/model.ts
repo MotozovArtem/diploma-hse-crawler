@@ -4,6 +4,9 @@ export enum AnalysePhase {
   LEMMATIZATION = "Стадия лемматизации",
   NORMALIZATION = "Стадия нормализации",
   ANALYSE_FAILED = "Ошибка анализа",
+  TOKENIZATION = "Стадия токенизации",
+  HTML_CLEANING = "Стадия очистки текста от HTML тегов",
+  WORD_COUNTING = "Стадия подсчета слов",
 }
 
 export class DomainObject {
