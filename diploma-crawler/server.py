@@ -8,6 +8,7 @@ from flask import Flask
 from flask import request
 from flask import Response
 from flask.logging import default_handler
+from flask_cors import CORS
 import logging
 import requests
 from urllib.parse import urlparse
@@ -20,6 +21,7 @@ crochet.setup()
 
 # Создание объекта приложения-сервера
 app = Flask(__name__)
+cors = CORS(app)
 
 DB = Database()
 

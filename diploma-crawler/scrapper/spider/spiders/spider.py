@@ -1,7 +1,7 @@
 from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 from scrapy import signals
-from domain.Domain import WebPage, WebPortal
+from domain.Domain import WebPage, WebPortal, WebPageBacklog
 
 import json
 import logging
@@ -18,7 +18,10 @@ class Spider(scrapy.Spider):
 
     def __init__(self, name=None, **kwargs):
         super().__init__(name=name, **kwargs)
-        self.__LOG: logging.Logger = logging.getLogger(__name__)
+
+    # def start_requests(self):
+    #     for url in self.start_urls:
+    #         yield scrapy.Request(url, self.parse, errback=self.error_callback)
 
     def parse(self, response):
         parsed_url = urlparse(response.url)
@@ -42,6 +45,11 @@ class Spider(scrapy.Spider):
         urls = soup.find_all('a', href=True)
         for url in urls:
             yield scrapy.Request(urljoin(response.url, url["href"]), self.parse)
+            # todo: add with backlog
+            # yield scrapy.Request(urljoin(response.url, url["href"]), self.parse, errback=self.error_callback, cb_kwargs={
+            #     "web_page": web_page,
+            #     "web_portal": self.web_portal
+            # })
 
     def _send_proprocess_event(self, web_page_id: str) -> None:
         crawler_preprocessor_host = os.getenv("PREPROCESSOR_HOST")
@@ -60,3 +68,11 @@ class Spider(scrapy.Spider):
             result[i] = tag_as_string
             i += 1
         return result
+
+    def error_callback(self, failure):
+        # todo: add backlog
+        # self.logger.warning('Get exception')
+        # self.logger.exception(failure)
+        # web_page_backlog = WebPageBacklog()
+        # web_page_backlog.web_page_backlog
+        pass

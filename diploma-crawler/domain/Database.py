@@ -4,6 +4,7 @@ import os
 from mongoengine import connect, disconnect
 from util.AppProperties import AppProperties
 
+
 class Database:
     def __init__(self):
         self.__LOG = logging.getLogger("Database")

@@ -68,12 +68,30 @@ class WebPage(DomainObject):
     meta = {'collection': 'web_pages'}
 
 
+class WebPageBacklog(Document):
+    '''Класс WebPageBacklog.'''
+    __id = UUIDField(required=True, binary=False,
+                     default=uuid.uuid4, primary_key=True)
+    _class = StringField(default="ru.hse.diploma.domain.WebPageBacklog")
+    error_text = StringField()
+    error_code = StringField()
+    web_portal = ReferenceField("WebPortal")
+    web_portal_name = StringField()
+    web_page = ReferenceField("WebPage")
+    web_page_name = StringField()
+    creation_time = DateTimeField(default=datetime.datetime.utcnow)
+
+    meta = {'collection': 'web_pages_backlog'}
+
+
 def update_last_modified_time(sender, document):
-    document.last_modified_time = datetime.datetime.utcnow
+    if isinstance(document, DomainObject):
+        document.last_modified_time = datetime.datetime.utcnow
 
 
 def update_version_ts(sender, document):
-    document.ts += 1
+    if isinstance(document, DomainObject):
+        document.ts += 1
 
 
 signals.pre_save.connect(update_last_modified_time)

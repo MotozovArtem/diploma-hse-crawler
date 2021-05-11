@@ -32,14 +32,11 @@ public class MongoConfiguration {
 	@Value("${spring.data.mongodb.database}")
 	private String database;
 
-	@Value("${crawler.mongo.db.host}")
-	private String envHost;
-
 	@Bean
 	public MongoDatabaseFactory mongoDatabaseFactory() {
 		MessageFormat format = new MessageFormat("mongodb://{0}:{1}@{2}:{3}");
 		return new SimpleMongoClientDatabaseFactory(
-				MongoClients.create(format.format(new Object[]{username, password, envHost != null ? envHost : host, port})),
+				MongoClients.create(format.format(new Object[]{username, password, host, port})),
 				database);
 	}
 }

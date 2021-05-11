@@ -12,19 +12,19 @@ import java.time.LocalDateTime;
  * @author Artem Motozov
  * @since 2021.05.06
  */
-@Document(collection = "web_page_backlogs")
+@Document(collection = "web_pages_backlog")
 public class WebPageBacklog {
 
 	@Id
 	private String id;
 
-	@Field("web_page_id")
+	@Field("web_page")
 	private String webPageId;
 
 	@Field("web_page_name")
 	private String webPageName;
 
-	@Field("web_portal_id")
+	@Field("web_portal")
 	private String webPortalId;
 
 	@Field("web_portal_name")
