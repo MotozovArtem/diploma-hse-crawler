@@ -14,17 +14,17 @@ services:
     image: redis:6.0-alpine
     ports:
       - "6379:6379"
-  # crawler-api:
-  #   container_name: crawler_api
-  #   image: rienelmot24/diploma-crawler-api:0.0.1
-  #   ports:
-  #     - "8080:8080"
-  #   environment:
-  #     MONGO_DB_HOST: crawler_db
-  #     DB_USERNAME: admin
-  #     DB_PASSWORD: admin
-  #   depends_on: 
-  #     - mongo-db
+  crawler-api:
+    container_name: crawler_api
+    image: rienelmot24/diploma-crawler-api:0.0.1
+    ports:
+      - "8080:8080"
+    environment:
+      MONGO_DB_HOST: crawler_db
+      DB_USERNAME: admin
+      DB_PASSWORD: admin
+    depends_on: 
+      - mongo-db
   worker:
     container_name: crawler_preprocessor_worker
     image: rienelmot24/diploma-crawler-preprocessor:0.0.1

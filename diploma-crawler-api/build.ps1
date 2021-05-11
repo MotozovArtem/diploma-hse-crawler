@@ -1,0 +1,1 @@
+docker build --build-arg APP_JAR_FILE="target/diploma-crawler-api-0.0.1-SNAPSHOT.jar" -t rienelmot24/diploma-crawler-api:0.0.1 .

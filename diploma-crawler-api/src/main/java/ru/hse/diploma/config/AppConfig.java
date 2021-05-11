@@ -22,10 +22,17 @@ public class AppConfig {
 	@Value("${spring.data.mongodb.host}")
 	private String host;
 
+	@Value("${crawler.mongo.db.host}")
+	private String envHost;
+
 	@Bean
 	public MongoClientFactoryBean mongoClientFactoryBean() {
 		MongoClientFactoryBean mongoClientFactoryBean = new MongoClientFactoryBean();
-		mongoClientFactoryBean.setHost(host);
+		if (envHost != null) {
+			mongoClientFactoryBean.setHost(envHost);
+		} else {
+			mongoClientFactoryBean.setHost(host);
+		}
 		mongoClientFactoryBean.setPort(port);
 		return mongoClientFactoryBean;
 	}

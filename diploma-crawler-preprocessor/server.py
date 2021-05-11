@@ -129,7 +129,7 @@ def preprocess(web_page: WebPage, web_page_analyse_result: WebPageAnalyseResult)
     app.logger.info("Started word count analyse. WebPageAnalyseResult (id: %s)",
                     web_page_analyse_result._DomainObject__id)
     word_count_result = analyse_word_count(word_tokenize)
-    web_page_analyse_result.word_couunt = json.dumps(
+    web_page_analyse_result.word_count = json.dumps(
         word_count_result)
     web_page_analyse_result.phase = "WORD_COUNTING"
     web_page_analyse_result.save()
