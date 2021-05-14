@@ -25,7 +25,7 @@
     </v-col>
     <v-col>
       <h2>Scrap site</h2>
-      <v-text-field v-model="targetUrl" label="Target URL" hint="Example: https://quotes.toscrape.com" class="mt-1"/>
+      <v-text-field v-model="targetUrl" label="Target URL" hint="Example: http://quotes.toscrape.com" class="mt-1"/>
       <v-btn elevation="1" text :disabled="busy" @click="scrap" class="mt-1">
         Scrap
       </v-btn>
@@ -46,7 +46,7 @@ import {Component, Vue} from 'vue-property-decorator';
 export default class Main extends Vue {
   private keywords: string = "quotes";
   private count: number = 5;
-  private targetUrl: string = "https://quotes.toscrape.com";
+  private targetUrl: string = "http://quotes.toscrape.com";
   private busy: boolean = false;
   private scrapRequestSuccess: boolean = false;
   private scrapRequestFailed: boolean = false;

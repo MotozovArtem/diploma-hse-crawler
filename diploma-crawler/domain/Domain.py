@@ -59,8 +59,8 @@ class WebPage(DomainObject):
     _class = StringField(default="ru.hse.diploma.domain.WebPage")
     url = StringField(max_length=1000)
     resource_name = StringField(max_length=500)
-    meta_data = StringField(max_length=2000)
-    head = StringField(max_length=1000)
+    meta_data = StringField()
+    head = StringField()
     page_text = StringField()
     web_portal = ReferenceField("WebPortal")
     web_portal_analyse_result = ReferenceField("WebPageAnalyseResult")
@@ -75,10 +75,9 @@ class WebPageBacklog(Document):
     _class = StringField(default="ru.hse.diploma.domain.WebPageBacklog")
     error_text = StringField()
     error_code = StringField()
+    resource = StringField()
     web_portal = ReferenceField("WebPortal")
     web_portal_name = StringField()
-    web_page = ReferenceField("WebPage")
-    web_page_name = StringField()
     creation_time = DateTimeField(default=datetime.datetime.utcnow)
 
     meta = {'collection': 'web_pages_backlog'}

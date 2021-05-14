@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  mongo-db:
+    container_name: crawler_db
+    image: mongo:4.0
+    ports:
+        - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+  redis-db:
+    container_name: redis_db
+    image: redis:6.0-alpine
+    ports:
+      - "6379:6379"
+  worker:
+    container_name: crawler_preprocessor_worker
+    image: rienelmot24/diploma-crawler-preprocessor:0.0.1
+    environment: 
+      MONGO_DB_HOST: crawler_db
+    depends_on: 
+      - redis-db
+    command: rq worker --name worker --url redis://redis_db:6379/0; 
+  crawler-preprocessor:
+    container_name: crawler_preprocessor
+    image: rienelmot24/diploma-crawler-preprocessor:0.0.1
+    environment:
+      REDIS_HOST: redis_db
+      MONGO_DB_HOST: crawler_db
+      FLASK_RUN_PORT: 5001
+    ports: 
+      - "5001:5001"
+    depends_on: 
+      - mongo-db
+      - worker
