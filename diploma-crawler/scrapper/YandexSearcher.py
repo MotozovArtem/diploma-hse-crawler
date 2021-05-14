@@ -22,21 +22,22 @@ class YandexSearcher:
         self.query: str = [str(elem) for elem in query]
         request_url: str = self.url.format("+".join(self.query))
         self.__LOG.info("Searching URL %s", request_url)
-        # response = requests.get(request_url, headers=self.request_headers)
+        response = requests.get(request_url, headers=self.request_headers)
 
         result = []
 
-        # self.__LOG.info("Response code %s", response.status_code)
-        # # HTTP OK = 200
-        # if response.status_code == HTTPStatus.OK:
-        #     soup = BeautifulSoup(response.content, "html.parser")
-        #     for title in soup.find_all("h2", class_="organic__title-wrapper"):
-        #         anchors = title.find_all("a")
-        #         if anchors:
-        #             link = anchors[0]["href"]
-        #             result.append(link)
-        # result = self.__clear_ads_references(result)
-        return ["https://monetkin.online/", "https://dozarplati.com/", "https://fastmoney.ru/"]
+        self.__LOG.info("Response code %s", response.status_code)
+        # HTTP OK = 200
+        if response.status_code == HTTPStatus.OK:
+            soup = BeautifulSoup(response.content, "html.parser")
+            for title in soup.find_all("h2", class_="organic__title-wrapper"):
+                anchors = title.find_all("a")
+                if anchors:
+                    link = anchors[0]["href"]
+                    result.append(link)
+        result = self.__clear_ads_references(result)
+        # return ["https://monetkin.online/", "https://dozarplati.com/", "https://fastmoney.ru/"]
+        return result
 
     def set_headers(self, headers: dict):
         if "User-Agent" not in headers.keys():
